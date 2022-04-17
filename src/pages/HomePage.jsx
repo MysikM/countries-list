@@ -8,8 +8,23 @@ import Card from "../components/Card";
 import Controls from "../components/Controls";
 
 const HomePage = ({countries, setCountries}) => {
+    const [filteredCountries, setFilteredCountries] = useState(countries);
 
     const navigate = useNavigate();
+
+    const handleSearch = (search, region) => {
+        let data = [...countries];
+
+        if(region) {
+            data = data.filter(c => c.region.includes(region));
+        }
+
+        if(search){
+            data = data.filter(c => c.name.common.toLowerCase().includes(search.toLowerCase()))
+        }
+
+        setFilteredCountries(data);
+    }
 
     useEffect(()=>{
         if(countries.length) {
@@ -20,9 +35,9 @@ const HomePage = ({countries, setCountries}) => {
 
     return (
         <>
-            <Controls />
+            <Controls onSearch={handleSearch} />
             <List>
-                {countries.map((item) => {
+                {filteredCountries.map((item) => {
                     const countryInfo = {
                         img: item.flags.png,
                         name: item.name.common,

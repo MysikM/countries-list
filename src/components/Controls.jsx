@@ -23,9 +23,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const Controls = () => {
+const Controls = ({onSearch}) => {
     const [search, setSearch] = useState('');
     const [region, setRegion] = useState('');
+
+    useEffect(()=>{
+        const regionValue = region?.value || '';
+        onSearch(search, regionValue);
+    },[search, region])
     return (
         <Wrapper>
             <Search search={search} setSearch={setSearch} />
