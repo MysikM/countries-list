@@ -10,12 +10,14 @@ import Details from "./pages/Details";
 
 
 function App() {
-  return (
+    const [countries, setCountries] = useState([]);
+
+    return (
     <>
         <Header />
         <Main>
             <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomePage countries={countries} setCountries={setCountries} />} />
                     <Route path="/country/:name" element={<Details />} />
                     <Route path="*" element={<NotFound />} />
             </Routes>
