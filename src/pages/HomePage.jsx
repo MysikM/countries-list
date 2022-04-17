@@ -9,7 +9,6 @@ import Controls from "../components/Controls";
 
 const HomePage = ({countries, setCountries}) => {
     const [filteredCountries, setFilteredCountries] = useState(countries);
-
     const navigate = useNavigate();
 
     const handleSearch = (search, region) => {
@@ -27,11 +26,15 @@ const HomePage = ({countries, setCountries}) => {
     }
 
     useEffect(()=>{
-        if(countries.length) {
+        if(!countries.length) {
             axios.get(ALL_COUNTRIES).then
             (({data}) => setCountries(data));
         }
     },[])
+
+    useEffect(()=>{
+        setFilteredCountries(countries);
+    }, [countries])
 
     return (
         <>
